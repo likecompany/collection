@@ -8,8 +8,7 @@ from enums import Rank, Suit
 from schema import ApplicationSchema
 
 
-class Collection(ApplicationSchema):
-    id: int
+class CollectionElement(ApplicationSchema):
     file_id: str
     rank: Rank
     suit: Suit
@@ -19,4 +18,4 @@ class CollectionResponse(ApplicationSchema):
     id: int
     name: str
     user: Optional[User] = None
-    collection: List[Collection]
+    collection_elements: List[CollectionElement]

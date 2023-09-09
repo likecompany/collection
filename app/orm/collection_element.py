@@ -5,7 +5,7 @@ from sqlalchemy.orm import Mapped
 from .core import ORMModel, types
 
 
-class CollectionFilesModel(ORMModel):
+class CollectionElementModel(ORMModel):
     rank: Mapped[types.Text]
     suit: Mapped[types.Text]
 

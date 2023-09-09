@@ -1,7 +1,7 @@
 from .collection import CollectionModel
-from .collection_files import CollectionFilesModel
+from .collection_element import CollectionElementModel
 
 __all__ = (
     "CollectionModel",
-    "CollectionFilesModel",
+    "CollectionElementModel",
 )

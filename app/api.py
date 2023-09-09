@@ -21,7 +21,7 @@ from core.crud import crud
 from core.depends import get_session
 from core.interfaces import interfaces
 from logger import logger
-from orm import CollectionFilesModel, CollectionModel
+from orm import CollectionElementModel, CollectionModel
 from requests import AddCollectionRequest, GetCollectionRequest
 from responses import CollectionResponse
 from schema import ApplicationResponse
@@ -70,7 +70,7 @@ async def get_collection(
             "id": collection.id,
             "name": collection.name,
             "user": user,
-            "collection": collection.collection,
+            "collection_elements": collection.collection_elements,
         },
     }
 
@@ -123,21 +123,21 @@ async def add_collection_core(
         Values(
             [
                 {
-                    CollectionFilesModel.collection_id: collection_id,
-                    CollectionFilesModel.file_id: collection.file_id,
-                    CollectionFilesModel.rank: collection.rank,
-                    CollectionFilesModel.suit: collection.suit,
+                    CollectionElementModel.collection_id: collection_id,
+                    CollectionElementModel.file_id: collection_element.file_id,
+                    CollectionElementModel.rank: collection_element.rank,
+                    CollectionElementModel.suit: collection_element.suit,
                 }
-                for collection in request.collection
+                for collection_element in request.collection_elements
             ]
         ),
-        Returning(CollectionFilesModel.id),
+        Returning(CollectionElementModel.id),
         session=session,
     )
 
     return user, await crud.collections.select.one(
         Where(CollectionModel.id == collection_id),
-        Options(selectinload(CollectionModel.collection)),
+        Options(selectinload(CollectionModel.collection_elements)),
         session=session,
     )
 
@@ -159,6 +159,6 @@ async def add_collection(
             "id": collection.id,
             "name": collection.name,
             "user": user,
-            "collection": collection.collection,
+            "collection_elements": collection.collection_elements,
         },
     }
