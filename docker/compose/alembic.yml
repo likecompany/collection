@@ -1,0 +1,22 @@
+version: "3.9"
+
+services:
+  poker_collection_alembic:
+    image: poker_collection_alembic:latest
+    build:
+      context: ${PWD}
+      dockerfile: docker/Dockerfile
+    command: /bin/bash -c \
+      "echo '[+] Run migrations' && \
+      alembic stamp head --purge && \
+      alembic revision --autogenerate -m "Migrations" && \
+      alembic upgrade head"
+    volumes:
+      - ${PWD}/:/app
+    env_file:
+      - ${PWD}/.env
+    depends_on:
+      poker_collection_database:
+        condition: service_healthy
+    networks:
+      - like_network
