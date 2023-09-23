@@ -54,7 +54,7 @@ async def get_collection_core(
 
 
 @router.post(
-    path=".getCollection",
+    path="/getCollection",
     response_model=ApplicationResponse[CollectionResponse],
     status_code=status.HTTP_200_OK,
 )
@@ -143,7 +143,7 @@ async def add_collection_core(
 
 
 @router.post(
-    path=".addCollection",
+    path="/addCollection",
     response_model=ApplicationResponse[CollectionResponse],
     status_code=status.HTTP_200_OK,
 )
