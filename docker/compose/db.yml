@@ -1,10 +1,10 @@
 version: "3.9"
 
 services:
-  poker_collection_database:
+  collection_database:
     image: postgres:15-bookworm
     volumes:
-      - postgres_poker_collection_data_database:/var/lib/postgresql/data/
+      - postgres_collection_data_database:/var/lib/postgresql/data/
     env_file:
       - ${PWD}/collection/.env
     environment:
@@ -22,4 +22,4 @@ services:
       - like_network
 
 volumes:
-  postgres_poker_collection_data_database:
+  postgres_collection_data_database:

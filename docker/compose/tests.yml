@@ -1,8 +1,8 @@
 version: "3.9"
 
 services:
-  poker_collection_tests:
-    image: poker_collection_tests:latest
+  collection_tests:
+    image: collection_tests:latest
     build:
       context: ${PWD}/collection
       dockerfile: docker/Dockerfile
@@ -14,7 +14,7 @@ services:
     env_file:
       - ${PWD}/collection/.env
     environment:
-      DATABASE_HOSTNAME: poker_collection_tests_database
+      DATABASE_HOSTNAME: collection_tests_database
     depends_on:
-      poker_collection_tests_database:
+      collection_tests_database:
         condition: service_healthy

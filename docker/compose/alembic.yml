@@ -1,8 +1,8 @@
 version: "3.9"
 
 services:
-  poker_collection_alembic:
-    image: poker_collection_alembic:latest
+  collection_alembic:
+    image: collection_alembic:latest
     build:
       context: ${PWD}/collection
       dockerfile: docker/Dockerfile
@@ -16,7 +16,7 @@ services:
     env_file:
       - ${PWD}/collection/.env
     depends_on:
-      poker_collection_database:
+      collection_database:
         condition: service_healthy
     networks:
       - like_network
