@@ -7,11 +7,8 @@ from fastapi import APIRouter
 from fastapi.exceptions import HTTPException
 from fastapi.param_functions import Body, Depends
 from likeinterface.exceptions import DecodeError, LikeAPIError
-from likeinterface.methods import (
-    GetAuthorizationInformationMethod,
-    GetFileMethod,
-    GetUserInformationMethod,
-)
+from likeinterface.methods import GetFile, GetMe, GetUser
+
 from likeinterface.types import User
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
@@ -42,7 +39,7 @@ async def get_collection_core(
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="COLLECTION_NOT_EXISTS")
 
     try:
-        user = await interface.request(method=GetUserInformationMethod(user_id=collection.user_id))
+        user = await interface.request(method=GetUser(user_id=collection.user_id))
     except LikeAPIError:
         logger.info("User was not found! Unable to define collection creator")
 
@@ -87,7 +84,7 @@ async def add_collection_core(
 
     try:
         user = await interface.request(
-            method=GetAuthorizationInformationMethod(access_token=request.access_token)
+            method=GetMe(access_token=request.access_token)
         )
     except LikeAPIError:
         raise HTTPException(
@@ -97,7 +94,7 @@ async def add_collection_core(
 
     for collection in request.collection:
         try:
-            await interface.request(GetFileMethod(file_id=collection.file_id))
+            await interface.request(GetFile(file_id=collection.file_id))
         except DecodeError as e:
             logger.exception(e)
 
