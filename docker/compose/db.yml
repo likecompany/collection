@@ -6,7 +6,7 @@ services:
     volumes:
       - postgres_poker_collection_data_database:/var/lib/postgresql/data/
     env_file:
-      - ${PWD}/.env
+      - ${PWD}/collection/.env
     environment:
       POSTGRES_USER: ${DATABASE_USERNAME}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}

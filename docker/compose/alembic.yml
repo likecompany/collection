@@ -4,7 +4,7 @@ services:
   poker_collection_alembic:
     image: poker_collection_alembic:latest
     build:
-      context: ${PWD}
+      context: ${PWD}/collection
       dockerfile: docker/Dockerfile
     command: /bin/bash -c \
       "echo '[+] Run migrations' && \
@@ -12,9 +12,9 @@ services:
       alembic revision --autogenerate -m "Migrations" && \
       alembic upgrade head"
     volumes:
-      - ${PWD}/:/app
+      - ${PWD}/collection/:/app
     env_file:
-      - ${PWD}/.env
+      - ${PWD}/collection/.env
     depends_on:
       poker_collection_database:
         condition: service_healthy

@@ -4,15 +4,15 @@ services:
   poker_collection_tests:
     image: poker_collection_tests:latest
     build:
-      context: ${PWD}
+      context: ${PWD}/collection
       dockerfile: docker/Dockerfile
     command: /bin/bash -c \
       "echo '[+] Run tests' && \
       python -m pytest --capture=sys --cov=app --cov-report html tests"
     volumes:
-      - ${PWD}/:/app
+      - ${PWD}/collection/:/app
     env_file:
-      - ${PWD}/.env
+      - ${PWD}/collection/.env
     environment:
       DATABASE_HOSTNAME: poker_collection_tests_database
     depends_on:

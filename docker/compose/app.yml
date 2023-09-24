@@ -4,20 +4,20 @@ services:
   poker_collection_backend:
     image: poker_collection_backend:latest
     build:
-      context: ${PWD}
+      context: ${PWD}/collection
       dockerfile: docker/Dockerfile
     command: /bin/bash -c \
-      "echo '[+] Run backend' && \
+      "echo '[+] Running Collection Backend' && \
       python main.py"
     volumes:
-      - ${PWD}/app:/app
+      - ${PWD}/collection/app:/app
     env_file:
-      - ${PWD}/.env
+      - ${PWD}/collection/.env
     depends_on:
       poker_collection_database:
         condition: service_healthy
     networks:
       - like_network
-    ports:
-      - ${PORT}:${PORT}
+    expose:
+      - ${COLLECTION_PORT}
     restart: unless-stopped
