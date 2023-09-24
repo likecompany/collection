@@ -19,7 +19,7 @@ from starlette import status
 
 from core.crud import crud
 from core.depends import get_session
-from core.interfaces import interfaces
+from core.interface import interface
 from logger import logger
 from orm import CollectionElementModel, CollectionModel
 from requests import AddCollectionRequest, GetCollectionRequest
@@ -42,9 +42,7 @@ async def get_collection_core(
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="COLLECTION_NOT_EXISTS")
 
     try:
-        user = await interfaces.auth_interface.request(
-            method=GetUserInformationMethod(user_id=collection.user_id)
-        )
+        user = await interface.request(method=GetUserInformationMethod(user_id=collection.user_id))
     except LikeAPIError:
         logger.info("User was not found! Unable to define collection creator")
 
@@ -88,7 +86,7 @@ async def add_collection_core(
         )
 
     try:
-        user = await interfaces.auth_interface.request(
+        user = await interface.request(
             method=GetAuthorizationInformationMethod(access_token=request.access_token)
         )
     except LikeAPIError:
@@ -99,7 +97,7 @@ async def add_collection_core(
 
     for collection in request.collection:
         try:
-            await interfaces.file_interface.request(GetFileMethod(file_id=collection.file_id))
+            await interface.request(GetFileMethod(file_id=collection.file_id))
         except DecodeError as e:
             logger.exception(e)
 
