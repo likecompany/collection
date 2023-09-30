@@ -1,8 +1,8 @@
 version: "3.9"
 
 services:
-  collection_backend:
-    image: collection_backend:latest
+  collection:
+    image: collection:latest
     build:
       context: ${PWD}/collection
       dockerfile: docker/Dockerfile
@@ -16,8 +16,8 @@ services:
     depends_on:
       collection_database:
         condition: service_healthy
-    networks:
-      - like_network
     expose:
       - ${COLLECTION_PORT}
+    networks:
+      - like_network
     restart: unless-stopped
