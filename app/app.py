@@ -40,7 +40,7 @@ def create_application() -> FastAPI:
         redoc_url=redoc_url,
         openapi_url=openapi_url,
     )
-    application.include_router(api_router, tags=["collection"])
+    application.include_router(api_router, tags=["collection"], prefix="/collection")
 
     def create_on_event() -> None:
         @application.on_event("startup")
