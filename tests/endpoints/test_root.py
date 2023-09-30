@@ -7,7 +7,7 @@ from tests.endpoints import Route
 
 
 class TestRootRoute(Route[bool]):
-    __url__ = "/poker.collection"
+    __url__ = "/collection"
     __method__ = "POST"
     __response__ = bool
 

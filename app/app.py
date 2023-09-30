@@ -23,7 +23,11 @@ def create_application() -> FastAPI:
     Setup FastAPI application: middleware, exception handlers, jwt, logger.
     """
 
-    docs_url, redoc_url, openapi_url = "/docs", "/redoc", "/openapi.json"
+    docs_url, redoc_url, openapi_url = (
+        "/collection/docs",
+        "/collection/redoc",
+        "/collection/openapi.json",
+    )
     if not server_settings.DEBUG:
         docs_url, redoc_url, openapi_url = None, None, None
 
@@ -32,7 +36,6 @@ def create_application() -> FastAPI:
         description="Manage user collections.",
         version="1.0a",
         debug=server_settings.DEBUG,
-        root_path="/collection",
         docs_url=docs_url,
         redoc_url=redoc_url,
         openapi_url=openapi_url,
@@ -54,7 +57,7 @@ def create_application() -> FastAPI:
 
     def create_routes() -> None:
         @application.post(
-            path="/",
+            path="/collection",
             response_model=ApplicationResponse[bool],
             status_code=status.HTTP_200_OK,
         )
@@ -68,7 +71,7 @@ def create_application() -> FastAPI:
         logger.info("Creating an admin panel is only available in debug mode, status: ...")
         if server_settings.DEBUG:
             admin = SQLAlchemyAdmin(
-                base_url="/admin",
+                base_url="/collection/admin",
                 engine=engine,
                 debug=True,
             )
