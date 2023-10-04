@@ -1,3 +1,3 @@
 # collection
 
-[README.md](https://github.com/likecompany/likepoker)
+[README.md](https://github.com/likecompany/poker)

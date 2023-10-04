@@ -3,6 +3,7 @@ name = "poker_collection"
 version = "1.0a"
 description = "Manage user collections."
 authors = ["likecompany"]
+license = "MIT"
 readme = "README.md"
 
 [tool.poetry.dependencies]
